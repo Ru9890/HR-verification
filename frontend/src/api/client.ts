@@ -4,7 +4,9 @@ import {
   AppSettings
 } from '../types';
 
-const API_BASE = 'http://localhost:8000/api';
+// Use VITE_API_BASE env var for flexibility (dev vs prod)
+// Fallback to deployed Render backend
+const API_BASE = (import.meta.env.VITE_API_BASE ?? 'https://hr-verification.onrender.com').replace(/\/$/, '') + '/api';
 
 export async function uploadResumePdf(file: File): Promise<VerificationReportResponse> {
   const formData = new FormData();
