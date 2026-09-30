@@ -1,0 +1,18 @@
+﻿services:
+  - type: web
+    name: resumeverify-ai-backend
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_NAME
+        value: ResumeVerify AI
+      - key: DEBUG
+        value: "false"
+      - key: LLM_PROVIDER
+        value: rule_based
+      - key: DATABASE_URL
+        sync: false   # Set in Render dashboard (contains secrets)
+      - key: GITHUB_TOKEN
+        sync: false   # Set in Render dashboard (contains secrets)
+    healthCheckPath: /health
