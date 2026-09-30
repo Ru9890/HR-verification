@@ -4,9 +4,9 @@ import {
   AppSettings
 } from '../types';
 
-// Use VITE_API_BASE env var for flexibility (dev vs prod)
-// Fallback to deployed Render backend
-const API_BASE = (import.meta.env.VITE_API_BASE ?? 'https://hr-verification.onrender.com').replace(/\/$/, '') + '/api';
+// Vercel proxies /api/* → https://hr-verification.onrender.com/api/* (see vercel.json)
+// For local dev, Vite proxies /api/* → localhost:8000 (see vite.config.ts)
+const API_BASE = '/api';
 
 export async function uploadResumePdf(file: File): Promise<VerificationReportResponse> {
   const formData = new FormData();
